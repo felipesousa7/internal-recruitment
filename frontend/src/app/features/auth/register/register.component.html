@@ -1,0 +1,83 @@
+<div class="register-container">
+  <div class="register-card">
+    <h2>Criar nova conta</h2>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">Nome completo</label>
+        <input 
+          type="text" 
+          id="name" 
+          formControlName="name"
+          placeholder="Digite seu nome completo"
+          [class.error]="registerForm.get('name')?.invalid && registerForm.get('name')?.touched">
+        <small class="error-message" *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched">
+          Nome é obrigatório
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label for="email">E-mail</label>
+        <input 
+          type="email" 
+          id="email" 
+          formControlName="email"
+          placeholder="Digite seu e-mail"
+          [class.error]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+        <small class="error-message" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+          E-mail inválido
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Senha</label>
+        <input 
+          type="password" 
+          id="password" 
+          formControlName="password"
+          placeholder="Digite sua senha"
+          [class.error]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+        <small class="error-message" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+          Senha deve ter no mínimo 6 caracteres
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Confirme a senha</label>
+        <input 
+          type="password" 
+          id="confirmPassword" 
+          formControlName="confirmPassword"
+          placeholder="Digite sua senha novamente"
+          [class.error]="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched">
+        <small class="error-message" *ngIf="registerForm.hasError('mismatch')">
+          As senhas não conferem
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label>Tipo de conta</label>
+        <div class="role-selector">
+          <div class="role-option" [class.selected]="registerForm.get('role')?.value === 'CANDIDATE'" (click)="selectRole('CANDIDATE')">
+            <span class="role-label">Candidato</span>
+          </div>
+          <div class="role-option" [class.selected]="registerForm.get('role')?.value === 'RECRUITER'" (click)="selectRole('RECRUITER')">
+            <span class="role-label">Recrutador</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <button type="submit" [disabled]="registerForm.invalid || loading">
+        {{ loading ? 'Registrando...' : 'CADASTRAR' }}
+      </button>
+    </form>
+
+    <div class="login-link">
+      Já tem uma conta? <a routerLink="/login">Entrar</a>
+    </div>
+  </div>
+</div>

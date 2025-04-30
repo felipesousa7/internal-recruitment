@@ -1,0 +1,152 @@
+.jobs-container {
+  padding: 20px;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+
+    h1 {
+      margin: 0;
+      color: #2c3e50;
+    }
+
+    .filters {
+      .filter-select {
+        padding: 8px 12px;
+        border: 1px solid #dcdde1;
+        border-radius: 5px;
+        background: white;
+        color: #2c3e50;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .jobs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .job-card {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+      .job-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+
+        h2 {
+          margin: 0;
+          font-size: 18px;
+          color: #2c3e50;
+        }
+
+        .status {
+          padding: 5px 10px;
+          border-radius: 15px;
+          font-size: 12px;
+          font-weight: 500;
+
+          &.applied {
+            background: #f1c40f;
+            color: white;
+          }
+
+          &.analyzing {
+            background: #3498db;
+            color: white;
+          }
+
+          &.rejected {
+            background: #e74c3c;
+            color: white;
+          }
+        }
+      }
+
+      .job-info {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 20px;
+
+        .info-item {
+          display: flex;
+          align-items: center;
+          color: #7f8c8d;
+
+          i {
+            margin-right: 8px;
+            font-size: 18px;
+          }
+        }
+      }
+
+      .job-description, .job-requirements {
+        margin-bottom: 20px;
+
+        h3 {
+          color: #2c3e50;
+          margin-bottom: 10px;
+        }
+
+        p {
+          color: #7f8c8d;
+          margin: 0;
+          line-height: 1.5;
+        }
+
+        ul {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+
+          li {
+            color: #7f8c8d;
+            margin-bottom: 5px;
+            padding-left: 20px;
+            position: relative;
+
+            &:before {
+              content: "•";
+              position: absolute;
+              left: 0;
+              color: #3498db;
+            }
+          }
+        }
+      }
+
+      .job-actions {
+        text-align: right;
+
+        .action-button {
+          display: flex;
+          align-items: center;
+          padding: 8px 12px;
+          background: #3498db;
+          color: white;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background 0.3s ease;
+
+          &:hover {
+            background: #2980b9;
+          }
+
+          i {
+            margin-right: 5px;
+            font-size: 18px;
+          }
+        }
+      }
+    }
+  }
+} 

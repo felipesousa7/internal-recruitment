@@ -1,0 +1,33 @@
+@use './variables' as *;
+@use './mixins' as *;
+
+// Mixin para centralizar elementos
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Mixin para espaçamento entre elementos
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+// Mixin para espaçamento padrão
+@mixin default-padding {
+  padding: $spacing-lg;
+}
+
+// Mixin para container responsivo
+@mixin responsive-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 $spacing-md;
+
+  @include respond-to('md') {
+    padding: 0 $spacing-lg;
+  }
+} 

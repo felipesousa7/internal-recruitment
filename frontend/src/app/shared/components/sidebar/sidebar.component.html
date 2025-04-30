@@ -1,0 +1,20 @@
+<nav class="sidebar">
+  <div class="sidebar-header">
+    <h2>Internal Recruitment</h2>
+  </div>
+  <ul class="sidebar-menu">
+    <li *ngFor="let item of menuItems" 
+        [routerLink]="item.route"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">
+      <i class="material-icons">{{item.icon}}</i>
+      <span>{{item.label}}</span>
+    </li>
+  </ul>
+  <div class="sidebar-footer">
+    <button class="logout-button" (click)="logout()">
+      <i class="material-icons">logout</i>
+      <span>Sair</span>
+    </button>
+  </div>
+</nav> 

@@ -1,0 +1,146 @@
+@use 'sass:color';
+@use '../../../styles/shared' as *;
+@use '../../../styles/_variables.scss' as *;
+@use '../../../styles/_mixins.scss' as *;
+
+.login-container {
+  @include flex-center;
+  min-height: 100vh;
+  padding: $spacing-lg;
+  box-sizing: border-box;
+}
+
+.login-card {
+  @include card;
+  width: 100%;
+  max-width: 420px;
+  padding: $spacing-xl;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: $border-radius * 2;
+  box-shadow: $shadow-lg;
+  box-sizing: border-box;
+
+  .logo {
+    text-align: center;
+    margin-bottom: $spacing-xl;
+    
+    img {
+      width: 120px;
+      height: auto;
+    }
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: $spacing-xl;
+    color: $dark-color;
+    font-size: $font-size-xl;
+    font-weight: 600;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+    width: 100%;
+    box-sizing: border-box;
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-xs;
+      width: 100%;
+      box-sizing: border-box;
+
+      label {
+        color: $secondary-color;
+        font-size: $font-size-sm;
+        font-weight: 500;
+        width: 100%;
+      }
+
+      input {
+        @include input;
+        width: 100%;
+        padding: $spacing-md;
+        font-size: $font-size-md;
+        border-radius: $border-radius;
+        background-color: $gray-100;
+        border: 2px solid transparent;
+        transition: all $transition-fast;
+        box-sizing: border-box;
+
+        &:focus {
+          background-color: white;
+          border-color: $primary-color;
+          box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+        }
+      }
+    }
+
+    .error-message {
+      color: $error-color;
+      font-size: $font-size-sm;
+      text-align: center;
+      padding: $spacing-sm;
+      background-color: rgba($error-color, 0.1);
+      border-radius: $border-radius;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    button {
+      @include button;
+      width: 100%;
+      padding: $spacing-md;
+      font-size: $font-size-md;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: $spacing-md;
+      background: linear-gradient(135deg, $primary-color, color.adjust($primary-color, $lightness: -10%));
+      border-radius: $border-radius;
+      box-shadow: $shadow-md;
+      transition: all $transition-fast;
+      box-sizing: border-box;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: $shadow-lg;
+      }
+
+      &:disabled {
+        opacity: 0.7;
+        transform: none;
+        box-shadow: none;
+      }
+    }
+  }
+
+  .register-link {
+    text-align: center;
+    margin-top: $spacing-lg;
+    color: $secondary-color;
+    font-size: $font-size-sm;
+    width: 100%;
+    box-sizing: border-box;
+
+    a {
+      color: $primary-color;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color $transition-fast;
+
+      &:hover {
+        color: color.adjust($primary-color, $lightness: -10%);
+      }
+    }
+  }
+}
+
+@include respond-to('sm') {
+  .login-card {
+    padding: $spacing-xl * 1.5;
+  }
+} 

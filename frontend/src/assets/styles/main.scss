@@ -1,0 +1,15 @@
+@import 'variables';
+@import 'mixins';
+@import 'base';
+
+// Importar estilos de componentes
+@import '../../app/shared/components/button/button.component.scss';
+@import '../../app/shared/components/card/card.component.scss';
+@import '../../app/shared/components/input/input.component.scss';
+
+// Importar estilos de páginas
+@import '../../app/features/auth/auth.component.scss';
+@import '../../app/features/job/job.component.scss';
+@import '../../app/features/application/application.component.scss';
+@import '../../app/features/candidate-panel/candidate-panel.component.scss';
+@import '../../app/features/admin/admin.component.scss'; 

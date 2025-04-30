@@ -1,0 +1,69 @@
+<div class="jobs-container">
+  <div class="header">
+    <h1>Gerenciar Vagas</h1>
+    <button mat-raised-button color="primary" (click)="toggleForm()">
+      <mat-icon>{{ showForm ? 'close' : 'add' }}</mat-icon>
+      {{ showForm ? 'Cancelar' : 'Nova Vaga' }}
+    </button>
+  </div>
+
+  <div class="job-form" *ngIf="showForm">
+    <form [formGroup]="jobForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Título da Vaga</mat-label>
+        <input matInput formControlName="title" placeholder="Ex: Desenvolvedor Frontend">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Descrição</mat-label>
+        <textarea matInput formControlName="description" rows="4" placeholder="Descreva a vaga..."></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Requisitos</mat-label>
+        <textarea matInput formControlName="requirements" rows="4" placeholder="Liste os requisitos da vaga..."></textarea>
+      </mat-form-field>
+
+      <div class="form-actions">
+        <button type="submit" mat-raised-button color="primary" [disabled]="!jobForm.valid || isLoading">
+          <mat-icon>save</mat-icon>
+          Salvar Vaga
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="jobs-list">
+    <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+    
+    <div class="job-card" *ngFor="let job of jobs">
+      <div class="job-header">
+        <h2>{{job.title}}</h2>
+        <div class="job-actions">
+          <button mat-icon-button color="warn" (click)="deleteJob(job.id!)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="job-status" [ngClass]="job.status.toLowerCase()">
+        {{job.status === 'OPEN' ? 'Aberta' : 'Fechada'}}
+      </div>
+
+      <div class="job-description">
+        <p>{{job.description}}</p>
+      </div>
+
+      <div class="job-requirements">
+        <h3>Requisitos:</h3>
+        <ul>
+          <li *ngFor="let req of job.requirements">{{req}}</li>
+        </ul>
+      </div>
+
+      <div class="job-footer">
+        <span class="job-date">Criada em: {{job.createdAt | date:'dd/MM/yyyy'}}</span>
+      </div>
+    </div>
+  </div>
+</div> 

@@ -1,0 +1,95 @@
+<div class="dashboard-container">
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="material-icons">work</i>
+      </div>
+      <div class="stat-info">
+        <h3>Candidaturas</h3>
+        <p class="stat-value">{{stats.applications}}</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="material-icons">event</i>
+      </div>
+      <div class="stat-info">
+        <h3>Entrevistas</h3>
+        <p class="stat-value">{{stats.interviews}}</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="material-icons">check_circle</i>
+      </div>
+      <div class="stat-info">
+        <h3>Ofertas</h3>
+        <p class="stat-value">{{stats.offers}}</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="material-icons">close</i>
+      </div>
+      <div class="stat-info">
+        <h3>Reprovadas</h3>
+        <p class="stat-value">{{stats.rejections}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="dashboard-content">
+    <div class="content-section">
+      <div class="section-header">
+        <h2>Vagas Recentes</h2>
+        <a href="#" class="view-all">Ver Todas</a>
+      </div>
+
+      <div class="jobs-list">
+        <div *ngFor="let job of recentJobs" class="job-item">
+          <div class="job-info">
+            <h3>{{job.title}}</h3>
+            <p class="company">{{job.company}}</p>
+          </div>
+          <div class="job-status">
+            <span class="status" [class.analyzing]="job.status === 'Em Análise'"
+                         [class.applied]="job.status === 'Aplicado'"
+                         [class.rejected]="job.status === 'Rejeitado'">
+              {{job.status}}
+            </span>
+            <p class="date">{{job.date}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-section">
+      <div class="section-header">
+        <h2>Próximas Entrevistas</h2>
+        <a href="#" class="view-all">Ver Todas</a>
+      </div>
+
+      <div class="interviews-list">
+        <div *ngFor="let interview of upcomingInterviews" class="interview-item">
+          <div class="interview-info">
+            <h3>{{interview.position}}</h3>
+            <p class="company">{{interview.company}}</p>
+          </div>
+          <div class="interview-details">
+            <div class="detail-item">
+              <i class="material-icons">event</i>
+              <span>{{interview.date}}</span>
+            </div>
+            <div class="detail-item">
+              <i class="material-icons">schedule</i>
+              <span>{{interview.time}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

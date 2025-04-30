@@ -1,0 +1,50 @@
+<div class="candidates-container">
+  <div class="header">
+    <h1>Candidatos</h1>
+    <div class="filters">
+      <select class="filter-select">
+        <option value="">Todos os Status</option>
+        <option value="Em Análise">Em Análise</option>
+        <option value="Aprovado">Aprovado</option>
+        <option value="Reprovado">Reprovado</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="candidates-list">
+    <div *ngFor="let candidate of candidates" class="candidate-card">
+      <div class="candidate-info">
+        <div class="candidate-header">
+          <h2>{{candidate.name}}</h2>
+          <span class="status" [class.analysis]="candidate.status === 'Em Análise'" 
+                           [class.approved]="candidate.status === 'Aprovado'"
+                           [class.rejected]="candidate.status === 'Reprovado'">
+            {{candidate.status}}
+          </span>
+        </div>
+        
+        <div class="candidate-details">
+          <div class="detail-item">
+            <i class="material-icons">work</i>
+            <span>{{candidate.position}}</span>
+          </div>
+          <div class="detail-item">
+            <i class="material-icons">event</i>
+            <span>Inscrito em {{candidate.appliedAt}}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="candidate-actions">
+        <button class="action-button">
+          <i class="material-icons">visibility</i>
+          Ver Perfil
+        </button>
+        <button class="action-button">
+          <i class="material-icons">chat</i>
+          Entrevista
+        </button>
+      </div>
+    </div>
+  </div>
+</div> 

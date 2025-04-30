@@ -1,0 +1,49 @@
+<div class="dashboard-layout">
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <h1>Recrutamento</h1>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a *ngFor="let item of menuItems$ | async" 
+         [routerLink]="item.route"
+         routerLinkActive="active"
+         class="nav-item">
+        <i class="material-icons">{{item.icon}}</i>
+        <span>{{item.title}}</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="logout-button" (click)="logout()">
+        <i class="material-icons">logout</i>
+        <span>Sair</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <div class="topbar">
+      <div class="search-bar">
+        <i class="material-icons">search</i>
+        <input type="text" placeholder="Pesquisar...">
+      </div>
+
+      <div class="user-menu">
+        <div class="notifications">
+          <i class="material-icons">notifications</i>
+          <span class="badge">3</span>
+        </div>
+
+        <div class="user-profile" *ngIf="currentUser$ | async as user">
+          <img src="assets/images/default-avatar.png" alt="Foto do usuário">
+          <span>{{user.name}}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div> 
