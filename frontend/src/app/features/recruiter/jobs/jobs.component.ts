@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { JobsService, Job, CreateJobRequest } from '../../../core/services/jobs.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -60,27 +60,10 @@ export class JobsComponent implements OnInit {
     });
   }
 
-  get requirementsArray(): FormArray {
-    return this.jobForm.get('requirements') as FormArray;
-  }
-
-  addRequirement(): void {
-    this.requirementsArray.push(this.fb.control(''));
-  }
-
-  removeRequirement(index: number): void {
-    if (this.requirementsArray.length > 1) {
-      this.requirementsArray.removeAt(index);
-    }
-  }
-
   onSubmit(): void {
     if (this.jobForm.valid) {
       this.isLoading = true;
-      const jobData: CreateJobRequest = {
-        ...this.jobForm.value,
-        requirements: this.jobForm.value.requirements.split('\n').filter((req: string) => req.trim() !== '')
-      };
+      const jobData: CreateJobRequest = this.jobForm.value;
 
       this.jobsService.createJob(jobData).subscribe({
         next: () => {
@@ -120,8 +103,6 @@ export class JobsComponent implements OnInit {
     this.showForm = !this.showForm;
     if (!this.showForm) {
       this.jobForm.reset();
-      this.requirementsArray.clear();
-      this.requirementsArray.push(this.fb.control(''));
     }
   }
 } 

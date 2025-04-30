@@ -23,8 +23,9 @@ public class JobService {
                 .orElseThrow(() -> new NoSuchElementException("Recruiter not found"));
         
         job.setRecruiter(recruiter);
-        job.setPostedDate(LocalDateTime.now());
-        job.setIsActive(true);
+        job.setCreatedAt(LocalDateTime.now());
+        job.setUpdatedAt(LocalDateTime.now());
+        job.setStatus("OPEN");
         
         return jobRepository.save(job);
     }
@@ -35,10 +36,9 @@ public class JobService {
         
         existingJob.setTitle(updatedJob.getTitle());
         existingJob.setDescription(updatedJob.getDescription());
-        existingJob.setDepartment(updatedJob.getDepartment());
-        existingJob.setLocation(updatedJob.getLocation());
         existingJob.setRequirements(updatedJob.getRequirements());
-        existingJob.setDeadline(updatedJob.getDeadline());
+        existingJob.setStatus(updatedJob.getStatus());
+        existingJob.setUpdatedAt(LocalDateTime.now());
         
         return jobRepository.save(existingJob);
     }
@@ -47,20 +47,17 @@ public class JobService {
         Job job = jobRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Job not found"));
         
-        job.setIsActive(false);
+        job.setStatus("CLOSED");
+        job.setUpdatedAt(LocalDateTime.now());
         jobRepository.save(job);
     }
 
-    public List<Job> getAllActiveJobs() {
-        return jobRepository.findByIsActiveTrue();
+    public List<Job> getAllJobs() {
+        return jobRepository.findAll();
     }
 
     public List<Job> getJobsByRecruiter(Long recruiterId) {
         return jobRepository.findByRecruiterId(recruiterId);
-    }
-
-    public List<Job> getJobsByDepartment(String department) {
-        return jobRepository.findByDepartment(department);
     }
 
     public Job getJobById(Long id) {

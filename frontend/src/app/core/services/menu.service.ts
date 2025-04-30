@@ -23,9 +23,9 @@ export class MenuService {
       route: '/candidate/jobs'
     },
     {
-      title: 'Entrevistas',
-      icon: 'event',
-      route: '/candidate/interviews'
+      title: 'Minhas Candidaturas',
+      icon: 'how_to_reg',
+      route: '/candidate/applications'
     },
   ];
 
@@ -50,8 +50,13 @@ export class MenuService {
   private menuItemsSubject = new BehaviorSubject<MenuItem[]>(this.candidateMenuItems);
   menuItems$ = this.menuItemsSubject.asObservable();
 
+  constructor() {}
+
   setRole(role: 'CANDIDATE' | 'RECRUITER') {
-    const menuItems = role === 'CANDIDATE' ? this.candidateMenuItems : this.recruiterMenuItems;
-    this.menuItemsSubject.next(menuItems);
+    if (role === 'CANDIDATE') {
+      this.menuItemsSubject.next(this.candidateMenuItems);
+    } else {
+      this.menuItemsSubject.next(this.recruiterMenuItems);
+    }
   }
 } 

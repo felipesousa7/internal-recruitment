@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { DashboardLayoutComponent } from '../../layouts/dashboard-layout/dashboard-layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { JobsComponent } from './jobs/jobs.component';
-import { InterviewsComponent } from './interviews/interviews.component';
+import { ApplicationsComponent } from './applications/applications.component';
 
 export const candidateRoutes: Routes = [
   {
@@ -18,8 +18,8 @@ export const candidateRoutes: Routes = [
         component: JobsComponent
       },
       {
-        path: 'interviews',
-        component: InterviewsComponent
+        path: 'applications',
+        component: ApplicationsComponent
       },
       {
         path: '',

@@ -2,35 +2,41 @@
   <div class="header">
     <h1>Candidatos</h1>
     <div class="filters">
-      <select class="filter-select">
+      <select class="filter-select" [(ngModel)]="selectedStatus">
         <option value="">Todos os Status</option>
-        <option value="Em Análise">Em Análise</option>
-        <option value="Aprovado">Aprovado</option>
-        <option value="Reprovado">Reprovado</option>
+        <option value="PENDING">Em Análise</option>
+        <option value="APPROVED">Aprovado</option>
+        <option value="REJECTED">Reprovado</option>
       </select>
     </div>
   </div>
 
-  <div class="candidates-list">
-    <div *ngFor="let candidate of candidates" class="candidate-card">
+  <div *ngIf="loading" class="loading">
+    <p>Carregando candidatos...</p>
+  </div>
+
+  <div *ngIf="error" class="error">
+    <p>{{error}}</p>
+  </div>
+
+  <div *ngIf="!loading && !error" class="candidates-list">
+    <div *ngFor="let candidate of getFilteredCandidates()" class="candidate-card">
       <div class="candidate-info">
         <div class="candidate-header">
-          <h2>{{candidate.name}}</h2>
-          <span class="status" [class.analysis]="candidate.status === 'Em Análise'" 
-                           [class.approved]="candidate.status === 'Aprovado'"
-                           [class.rejected]="candidate.status === 'Reprovado'">
-            {{candidate.status}}
+          <h2>{{candidate.candidate.name}}</h2>
+          <span class="status" [class]="getStatusClass(candidate.status)">
+            {{getStatusText(candidate.status)}}
           </span>
         </div>
         
         <div class="candidate-details">
           <div class="detail-item">
             <i class="material-icons">work</i>
-            <span>{{candidate.position}}</span>
+            <span>{{candidate.job.title}}</span>
           </div>
           <div class="detail-item">
             <i class="material-icons">event</i>
-            <span>Inscrito em {{candidate.appliedAt}}</span>
+            <span>Inscrito em {{candidate.appliedAt | date:'dd/MM/yyyy'}}</span>
           </div>
         </div>
       </div>
@@ -45,6 +51,10 @@
           Entrevista
         </button>
       </div>
+    </div>
+
+    <div *ngIf="getFilteredCandidates().length === 0" class="no-candidates">
+      <p>Nenhum candidato encontrado</p>
     </div>
   </div>
 </div> 

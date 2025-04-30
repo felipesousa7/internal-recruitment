@@ -4,6 +4,8 @@ import com.pacto.backend.model.Job;
 import com.pacto.backend.service.JobService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +18,9 @@ public class JobController {
     private final JobService jobService;
 
     @PostMapping
-    public ResponseEntity<Job> createJob(@RequestBody Job job, @RequestParam Long recruiterId) {
+    public ResponseEntity<Job> createJob(@RequestBody Job job) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Long recruiterId = ((com.pacto.backend.model.User) authentication.getPrincipal()).getId();
         return ResponseEntity.ok(jobService.createJob(job, recruiterId));
     }
 
@@ -32,18 +36,13 @@ public class JobController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Job>> getAllActiveJobs() {
-        return ResponseEntity.ok(jobService.getAllActiveJobs());
+    public ResponseEntity<List<Job>> getAllJobs() {
+        return ResponseEntity.ok(jobService.getAllJobs());
     }
 
     @GetMapping("/recruiter/{recruiterId}")
     public ResponseEntity<List<Job>> getJobsByRecruiter(@PathVariable Long recruiterId) {
         return ResponseEntity.ok(jobService.getJobsByRecruiter(recruiterId));
-    }
-
-    @GetMapping("/department/{department}")
-    public ResponseEntity<List<Job>> getJobsByDepartment(@PathVariable String department) {
-        return ResponseEntity.ok(jobService.getJobsByDepartment(department));
     }
 
     @GetMapping("/{id}")

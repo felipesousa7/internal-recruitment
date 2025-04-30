@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Builder;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name = "jobs")
@@ -27,25 +26,17 @@ public class Job {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
     
-    @Column(nullable = false)
-    private String department;
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String requirements;
     
     @Column(nullable = false)
-    private String location;
-    
-    @ElementCollection
-    @CollectionTable(name = "job_requirements", joinColumns = @JoinColumn(name = "job_id"))
-    @Column(name = "requirement")
-    private List<String> requirements;
+    private LocalDateTime createdAt;
     
     @Column(nullable = false)
-    private LocalDateTime postedDate;
+    private LocalDateTime updatedAt;
     
     @Column(nullable = false)
-    private LocalDateTime deadline;
-    
-    @Column(nullable = false)
-    private Boolean isActive;
+    private String status;
     
     @ManyToOne
     @JoinColumn(name = "recruiter_id", nullable = false)

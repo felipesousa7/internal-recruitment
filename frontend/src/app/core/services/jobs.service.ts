@@ -7,7 +7,7 @@ export interface Job {
   id?: number;
   title: string;
   description: string;
-  requirements: string[];
+  requirements: string;
   status: 'OPEN' | 'CLOSED';
   createdAt?: Date;
   updatedAt?: Date;
@@ -16,7 +16,7 @@ export interface Job {
 export interface CreateJobRequest {
   title: string;
   description: string;
-  requirements: string[];
+  requirements: string;
 }
 
 @Injectable({
@@ -43,5 +43,9 @@ export class JobsService {
 
   deleteJob(id: number): Observable<void> {
     return this.http.delete<void>(`${environment.apiUrl}/jobs/${id}`);
+  }
+
+  getJobsByRecruiter(recruiterId: number): Observable<Job[]> {
+    return this.http.get<Job[]>(`${environment.apiUrl}/jobs/recruiter/${recruiterId}`);
   }
 } 

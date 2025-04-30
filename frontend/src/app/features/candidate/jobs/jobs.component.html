@@ -1,42 +1,45 @@
 <div class="jobs-container">
   <div class="header">
-    <h1>Minhas Vagas</h1>
-    <div class="filters">
-      <select class="filter-select">
-        <option value="">Todos os Status</option>
-        <option value="Aplicado">Aplicado</option>
-        <option value="Em Análise">Em Análise</option>
-        <option value="Rejeitado">Rejeitado</option>
-      </select>
-    </div>
+    <h1>Vagas Disponíveis</h1>
   </div>
 
-  <div class="jobs-list">
+  <!-- Loading state -->
+  <div *ngIf="loading" class="loading">
+    <p>Carregando vagas...</p>
+  </div>
+
+  <!-- Error state -->
+  <div *ngIf="error" class="error">
+    <p>{{ error }}</p>
+    <button (click)="loadJobs()">Tentar Novamente</button>
+  </div>
+
+  <!-- Jobs list -->
+  <div *ngIf="!loading && !error" class="jobs-list">
     <div *ngFor="let job of jobs" class="job-card">
       <div class="job-header">
-        <h2>{{job.title}}</h2>
+        <div class="title-date">
+          <h2>{{job.title}}</h2>
+          <span class="date">Publicada em: {{job.createdAt | date:'dd/MM/yyyy'}}</span>
+        </div>
         <span class="status" [class.applied]="job.status === 'Aplicado'"
                        [class.analyzing]="job.status === 'Em Análise'"
                        [class.rejected]="job.status === 'Rejeitado'">
-          {{job.status}}
+          {{job.status || 'Disponível'}}
         </span>
       </div>
 
       <div class="job-info">
         <div class="info-item">
-          <i class="material-icons">business</i>
           <span>{{job.company}}</span>
         </div>
         <div class="info-item">
-          <i class="material-icons">location_on</i>
           <span>{{job.location}}</span>
         </div>
         <div class="info-item">
-          <i class="material-icons">schedule</i>
           <span>{{job.type}}</span>
         </div>
         <div class="info-item">
-          <i class="material-icons">attach_money</i>
           <span>{{job.salary}}</span>
         </div>
       </div>
@@ -49,14 +52,13 @@
       <div class="job-requirements">
         <h3>Requisitos</h3>
         <ul>
-          <li *ngFor="let req of job.requirements">{{req}}</li>
+          <li *ngFor="let requirement of job.requirements.split(',')">{{requirement.trim()}}</li>
         </ul>
       </div>
 
       <div class="job-actions">
-        <button class="action-button">
-          <i class="material-icons">visibility</i>
-          Ver Detalhes
+        <button class="action-button apply" (click)="applyToJob(job.id)">
+          Candidatar-se
         </button>
       </div>
     </div>

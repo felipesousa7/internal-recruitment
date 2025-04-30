@@ -36,7 +36,6 @@
         </div>
 
         <div class="user-profile" *ngIf="currentUser$ | async as user">
-          <img src="assets/images/default-avatar.png" alt="Foto do usuário">
           <span>{{user.name}}</span>
         </div>
       </div>

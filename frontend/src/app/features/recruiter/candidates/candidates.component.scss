@@ -24,6 +24,17 @@
     }
   }
 
+  .loading, .error, .no-candidates {
+    text-align: center;
+    padding: 40px;
+    color: #7f8c8d;
+    font-size: 16px;
+  }
+
+  .error {
+    color: #e74c3c;
+  }
+
   .candidates-list {
     display: flex;
     flex-direction: column;

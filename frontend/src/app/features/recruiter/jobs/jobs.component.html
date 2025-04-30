@@ -21,7 +21,7 @@
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Requisitos</mat-label>
-        <textarea matInput formControlName="requirements" rows="4" placeholder="Liste os requisitos da vaga..."></textarea>
+        <textarea matInput formControlName="requirements" rows="4" placeholder="Descreva os requisitos da vaga..."></textarea>
       </mat-form-field>
 
       <div class="form-actions">
@@ -51,14 +51,13 @@
       </div>
 
       <div class="job-description">
+        <h3>Descrição</h3>
         <p>{{job.description}}</p>
       </div>
 
       <div class="job-requirements">
-        <h3>Requisitos:</h3>
-        <ul>
-          <li *ngFor="let req of job.requirements">{{req}}</li>
-        </ul>
+        <h3>Requisitos</h3>
+        <p>{{job.requirements}}</p>
       </div>
 
       <div class="job-footer">

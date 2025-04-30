@@ -29,8 +29,8 @@ public class ApplicationService {
         Job job = jobRepository.findById(jobId)
                 .orElseThrow(() -> new NoSuchElementException("Job not found"));
         
-        if (!job.getIsActive()) {
-            throw new IllegalStateException("Job is not active");
+        if (job.getStatus() == null || !job.getStatus().equals("OPEN")) {
+            throw new IllegalStateException("Job is not available for applications");
         }
         
         if (applicationRepository.existsByCandidateIdAndJobId(candidateId, jobId)) {

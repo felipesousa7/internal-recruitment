@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { JobService } from '../../../core/services/job.service';
+import { Job } from '../../../core/models/job.model';
 
 @Component({
   selector: 'app-candidate-jobs',
@@ -8,55 +10,47 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule]
 })
-export class JobsComponent {
-  jobs = [
-    {
-      id: 1,
-      title: 'Desenvolvedor Frontend',
-      company: 'Empresa A',
-      location: 'São Paulo, SP',
-      type: 'Tempo Integral',
-      salary: 'R$ 8.000 - R$ 12.000',
-      description: 'Estamos buscando um desenvolvedor Frontend com experiência em Angular e React.',
-      requirements: [
-        'Experiência com Angular e React',
-        'Conhecimento em TypeScript',
-        'Experiência com Git',
-        'Boa comunicação'
-      ],
-      status: 'Aplicado'
-    },
-    {
-      id: 2,
-      title: 'Desenvolvedor Backend',
-      company: 'Empresa B',
-      location: 'Remoto',
-      type: 'Tempo Integral',
-      salary: 'R$ 10.000 - R$ 15.000',
-      description: 'Vaga para desenvolvedor Backend com experiência em Java e Spring Boot.',
-      requirements: [
-        'Experiência com Java e Spring Boot',
-        'Conhecimento em SQL',
-        'Experiência com APIs REST',
-        'Boa comunicação'
-      ],
-      status: 'Em Análise'
-    },
-    {
-      id: 3,
-      title: 'UX Designer',
-      company: 'Empresa C',
-      location: 'Rio de Janeiro, RJ',
-      type: 'Tempo Integral',
-      salary: 'R$ 7.000 - R$ 10.000',
-      description: 'Procuramos um UX Designer com experiência em design de interfaces.',
-      requirements: [
-        'Experiência com Figma',
-        'Conhecimento em UX/UI',
-        'Portfólio de projetos',
-        'Boa comunicação'
-      ],
-      status: 'Rejeitado'
-    }
-  ];
+export class JobsComponent implements OnInit {
+  jobs: Job[] = [];
+  loading = true;
+  error: string | null = null;
+
+  constructor(private jobService: JobService) {}
+
+  ngOnInit() {
+    this.loadJobs();
+  }
+
+  loadJobs() {
+    this.loading = true;
+    this.error = null;
+    
+    this.jobService.getAllJobs().subscribe({
+      next: (jobs) => {
+        this.jobs = jobs;
+        this.loading = false;
+      },
+      error: (err) => {
+        this.error = 'Erro ao carregar as vagas. Tente novamente mais tarde.';
+        this.loading = false;
+        console.error('Erro ao carregar vagas:', err);
+      }
+    });
+  }
+
+  applyToJob(jobId: number) {
+    this.jobService.applyToJob(jobId).subscribe({
+      next: () => {
+        // Atualiza o status da vaga localmente
+        const job = this.jobs.find(j => j.id === jobId);
+        if (job) {
+          job.status = 'Aplicado';
+        }
+      },
+      error: (err) => {
+        console.error('Erro ao se candidatar:', err);
+        alert('Erro ao se candidatar à vaga. Tente novamente mais tarde.');
+      }
+    });
+  }
 } 

@@ -1,0 +1,61 @@
+<div class="applications-container">
+  <div class="header">
+    <h1>Minhas Candidaturas</h1>
+  </div>
+
+  <!-- Loading state -->
+  <div *ngIf="loading" class="loading">
+    <p>Carregando suas candidaturas...</p>
+  </div>
+
+  <!-- Error state -->
+  <div *ngIf="error" class="error">
+    <p>{{ error }}</p>
+    <button (click)="loadApplications()">Tentar Novamente</button>
+  </div>
+
+  <!-- Applications list -->
+  <div *ngIf="!loading && !error" class="applications-list">
+    <div *ngFor="let application of applications" class="application-card">
+      <div class="application-header">
+        <h2>{{application.title}}</h2>
+        <span class="status" [class.applied]="application.status === 'Aplicado'"
+                       [class.analyzing]="application.status === 'Em Análise'"
+                       [class.rejected]="application.status === 'Rejeitado'">
+          {{application.status}}
+        </span>
+      </div>
+
+      <div class="application-info">
+        <div class="info-item">
+          <i class="material-icons">business</i>
+          <span>{{application.company}}</span>
+        </div>
+        <div class="info-item">
+          <i class="material-icons">location_on</i>
+          <span>{{application.location}}</span>
+        </div>
+        <div class="info-item">
+          <i class="material-icons">schedule</i>
+          <span>{{application.type}}</span>
+        </div>
+        <div class="info-item">
+          <i class="material-icons">attach_money</i>
+          <span>{{application.salary}}</span>
+        </div>
+      </div>
+
+      <div class="application-description">
+        <h3>Descrição</h3>
+        <p>{{application.description}}</p>
+      </div>
+
+      <div class="application-requirements">
+        <h3>Requisitos</h3>
+        <ul>
+          <li *ngFor="let req of application.requirements">{{req}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div> 

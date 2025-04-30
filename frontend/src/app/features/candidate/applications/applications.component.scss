@@ -1,26 +1,12 @@
-.jobs-container {
+.applications-container {
   padding: 20px;
 
   .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     margin-bottom: 30px;
 
     h1 {
       margin: 0;
       color: #2c3e50;
-    }
-
-    .filters {
-      .filter-select {
-        padding: 8px 12px;
-        border: 1px solid #dcdde1;
-        border-radius: 5px;
-        background: white;
-        color: #2c3e50;
-        cursor: pointer;
-      }
     }
   }
 
@@ -52,40 +38,27 @@
     color: #e74c3c;
   }
 
-  .jobs-list {
+  .applications-list {
     display: flex;
     flex-direction: column;
     gap: 20px;
 
-    .job-card {
+    .application-card {
       background: white;
       border-radius: 8px;
       padding: 20px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 
-      .job-header {
+      .application-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-bottom: 15px;
 
-        .title-date {
-          flex: 1;
-          text-align: center;
-          margin-right: 20px;
-
-          h2 {
-            margin: 0;
-            font-size: 24px;
-            font-weight: 600;
-            color: #2c3e50;
-          }
-
-          .date {
-            display: block;
-            color: #7f8c8d;
-            margin-top: 5px;
-          }
+        h2 {
+          margin: 0;
+          font-size: 18px;
+          color: #2c3e50;
         }
 
         .status {
@@ -111,7 +84,7 @@
         }
       }
 
-      .job-info {
+      .application-info {
         display: flex;
         flex-wrap: wrap;
         gap: 15px;
@@ -129,7 +102,7 @@
         }
       }
 
-      .job-description, .job-requirements {
+      .application-description, .application-requirements {
         margin-bottom: 20px;
 
         h3 {
@@ -160,41 +133,6 @@
               left: 0;
               color: #3498db;
             }
-          }
-        }
-      }
-
-      .job-actions {
-        display: flex;
-        justify-content: flex-end;
-        gap: 10px;
-
-        .action-button {
-          display: flex;
-          align-items: center;
-          padding: 8px 12px;
-          background: #3498db;
-          color: white;
-          border: none;
-          border-radius: 5px;
-          cursor: pointer;
-          transition: background 0.3s ease;
-
-          &:hover {
-            background: #2980b9;
-          }
-
-          &.apply {
-            background: #2ecc71;
-
-            &:hover {
-              background: #27ae60;
-            }
-          }
-
-          i {
-            margin-right: 5px;
-            font-size: 18px;
           }
         }
       }
